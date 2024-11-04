@@ -1,0 +1,73 @@
+toggleMenu:
+    other: 切換選單
+
+darkMode:
+    other: Dark Mode
+
+list:
+    page:
+        one: "第 {{ .Count }} 頁"
+        other: "第 {{ .Count }} 頁"
+
+    section:
+        other: 段落
+
+    subsection:
+        one: 小節
+        other: 小節
+
+article:
+    back:
+        other: 返回
+
+    tableOfContents:
+        other: 目錄
+
+    relatedContent:
+        other: 相關文章
+
+    lastUpdatedOn:
+        other: 最後更新
+
+    readingTime:
+        one: "閱讀時間: {{ .Count }} 分鐘"
+        other: "閱讀時間: {{ .Count }} 分鐘"
+
+notFound:
+    title:
+        other: 404 錯誤
+
+    subtitle:
+        other: 頁面不存在
+
+widget:
+    archives:
+        title:
+            other: Archieves
+
+        more:
+            other: 更多
+
+    tagCloud:
+        title:
+            other: TAGS
+    categoriesCloud:
+        title:
+            other: Categories
+
+search:
+    title:
+        other: Search
+
+    placeholder:
+        other: Type something...
+
+    resultTitle:
+        other: "#PAGES_COUNT 個結果 （用時 #TIME_SECONDS 秒）"
+
+footer:
+    builtWith:
+        other: 使用 {{ .Generator }} 建立
+
+    designedBy:
+        other: 主題 {{ .Theme }} 由 {{ .DesignedBy }} 設計
