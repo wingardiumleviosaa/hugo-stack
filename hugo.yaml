@@ -1,4 +1,4 @@
-baseurl: https://wingardiumleviosaa.netlify.app
+baseurl: https://wingardiumleviosaa.netlify.app/
 languageCode: en-us
 theme: ["hugo-theme-stack","hugo-notice",]
 title: Ulagraphy
@@ -49,7 +49,7 @@ params:
         - post
     featuredImageField: image
     rssFullContent: true
-    favicon: /favicon.ico # e.g.: favicon placed in `static/favicon.ico` of your site folder, then set this field to `/favicon.ico` (`/` is necessary)
+    favicon: /img/favicon.ico
 
     footer:
         since: 2019
