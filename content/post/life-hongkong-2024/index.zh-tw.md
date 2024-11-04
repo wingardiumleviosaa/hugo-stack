@@ -67,8 +67,8 @@ image = "cover.jpg"
 ![](images/victoriaFerry.jpg)
 在去港口的路上會經過長長的天橋，正好還遇到下班時間，看到許多的正裝上班族通勤，才體會到身處在商業重地之中的繁忙。另外還有路過沒想像中大的香港摩天輪 🎡  
 下船後還正好趕上八點的燈光秀，剛好挑到好位置欣賞這世界三大夜景之一的維多利亞港！
-<br/><img src="./images/victoria3.jpg" style="height:750px;display:block;margin:auto;">
-<br/><img src="./images/victoria.jpg" style="height:450px;display:block;margin:auto;">
+<br/><img src="./images/victoria3.jpg" style="height:600px;display:block;margin:auto;">
+<br/><img src="./images/victoria.jpg" style="height:350px;display:block;margin:auto;">
 <br/><img src="./images/victoria4.jpg" style="height:650px;display:block;margin:auto;">
 ![](images/victoria2.jpg)
 
@@ -80,28 +80,28 @@ image = "cover.jpg"
 ## DAY2
 ### 新興食家
 第一站早午餐來堅尼地城的港式飲茶新興食家，還沒11點所以不需要排隊，但裡面也幾乎是滿座的情況。因為用餐區小到沒辦法從推車點餐，也因為座位有限，人數少的話絕對會需要併桌，但整體餐點好吃，點餐的服務阿姨態度也跟網路上說的完全不一樣，非常友善！吃飽出來還很幸運的發現外面已經開始在排隊了，再次讚嘆我的排程 d(`･∀･)b 
-<br/><img src="./images/shinshinFood.jpg" style="height:650px;display:block;margin:auto;">
+<br/><img src="./images/shinshinFood.jpg" style="height:450px;display:block;margin:auto;">
 
 ### 石牆樹群、小紅書籃球場
 吃飽後走來附近的兩個景點，一個是石牆樹群，另外一個是去年小紅書爆紅的籃球場拍照景點。在抵達籃球場前，還以為是直接可以遠眺的風景，結果抵達後發現風景得隔著藍球網拍 XDD 能發現的人真的很厲害
-<br/><img src="./images/treeWall.jpg" style="height:750px;display:block;margin:auto;">
+<br/><img src="./images/treeWall.jpg" style="height:550px;display:block;margin:auto;">
 ![](images/basketballCourt.jpg)
 
 ### 怪獸大樓
 變形金剛的取景地怪獸大樓是由多棟大廈組成的，從外觀看上去如同被巨大的怪獸吞噬，因而得其名。每層交錯，是典型的香港蝸居，密密麻麻的窗戶裡藏著無數人的故事與日常。
 ![](images/monsterBuilding.jpg)
-<br/><img src="./images/monsterBuilding1.jpg" style="height:400px;display:block;margin:auto;">
+<br/><img src="./images/monsterBuilding1.jpg" style="height:300px;display:block;margin:auto;">
 
 ### BlueHouse
 排行程時無意間看到的地標 BlueHouse，藍屋以前是一所醫院，現今列為香港一級歷史建築物。令人驚喜的是這邊的建築竟然不僅只有藍色，周邊的建築物每一棟都擁有獨特的顏色，與藍屋相互輝映，形成一幅充滿活力的城市風景。
 ![](images/blueHouse1.jpg)
 ![](images/blueHouse3.jpg)
-<br/><img src="./images/blueHouse2.jpg" style="height:650px;display:block;margin:auto;">
+<br/><img src="./images/blueHouse2.jpg" style="height:500px;display:block;margin:auto;">
 
 ### 新光戲院、香港街景、路上美食
 在從堅尼地城回到中環、再去銅鑼灣上以及回到中環的路上買的小食物有：
 1. ifc mall 裡面的 FineFood 拿破崙蛋糕配 % Arabica 咖啡，特別到這間購物商場裡面去找論壇上推薦的帝苑酒店的 FineFood 櫃位買拿破崙，順便還買了一盒黑鹽口味的蝴蝶酥，這邊真的完全不用排隊，有夠隱密！
-<br/><img src="./images/ifc.jpg" style="height:400px;display:block;margin:auto;">
+<br/><img src="./images/ifc.jpg" style="height:300px;display:block;margin:auto;">
 2. 百事吉餅店的蝴蝶酥跟拿破崙派，蝴蝶酥是伴手禮，拿破崙蛋糕回到飯店吃的心得是果然還是找不到小時候在皇朝酒店吃的味道，但有時候我在想，長大後明明吃過這麼多不一樣的拿破崙，總還是覺得皇朝的最棒，也或許是因為小時候吃的時候是暑假在大陸玩的美好時光，所以才那麼難以被取代。
 3. 新光戲院旁的涼茶，茶是用碗公裝好然後就站在店家前面喝完，很特別的體驗！然後因為那時候是感冒末期，可是這兩天又放縱的吃了一堆冰品，所以為了彌補喉嚨點了化痰茶 (⁰▿⁰) 
 4. 銅鑼灣店的 BakeHouse，經過沒人在排隊的另一家熱門蛋塔店，就馬上各買了一顆站在門口吃，剛出爐的蛋塔真的很讚！
@@ -113,7 +113,7 @@ image = "cover.jpg"
 
 ### 譚仔三哥米線
 晚餐吃飯店附近譚仔三哥的過橋米線，兩個人一碗再加上土匪雞翼。終於可以理解為什麼香港人這麽喜歡吃了！榮登我香港行的前三！
-<br/><img src="./images/samgorNoodle.jpg" style="height:450px;display:block;margin:auto;">
+<br/><img src="./images/samgorNoodle.jpg" style="height:400px;display:block;margin:auto;">
 
 ### 廟街夜市、澳洲牛奶公司
 吃飽後坐公車去廟街夜市逛逛，夜市相較於台灣遜色很多，沒有特別的食物。幸好還可以順便去附近的澳洲牛奶公司吃個燉奶當點心。燉奶點冰的，吃起來就是很濃郁的奶酪，好好吃！
@@ -123,7 +123,7 @@ image = "cover.jpg"
 
 ## DAY3
 今天要從很棒的 OTTO 退房了 T_T 早上趁姐在準備的時候，先去珍妮小熊扛四盒餅乾當伴手禮。九點半就到了，沒想到人已經排了好大一圈，不過幸好結帳流程很快，所以十點一到沒多久就順利買到了！
-<br/><img src="./images/jenny.jpg" style="height:450px;display:block;margin:auto;">
+<br/><img src="./images/jenny.jpg" style="height:400px;display:block;margin:auto;">
 退房後再回到珍妮小熊的同一棟住商大樓 XD 第二間青旅也在同一棟，因為下午三點才能入住，幸好可以先免費寄放行李 ヽ(●´∀`●)ﾉ
 
 ### 麥文記麵家
@@ -145,8 +145,8 @@ image = "cover.jpg"
 3. 晶華冰廳菠蘿油，不愧是網上評論中香港最佳菠蘿油！直接不用排隊就外帶買到一顆剛出爐的，外表菠蘿酥的部分極脆，奶油很香！好好吃 (๑´ㅂ`๑)
 4. 蛋仔記雞蛋仔，香港的特色小吃，中規中矩的味道跟口感，吃起來就跟在台灣吃的一樣 ^_^
 5. 富豪雪糕，沒有特別紀錄雪糕車出沒的位置，但真的很容易遇到，這邊應該是剛好司機臨時停車回來，被前面的客人攔截，我們跟著排，買完就開走了 🤣 傳統的香草雪糕，但吃起來意外清爽～
-<br/><img src="./images/wanFood2.jpg" style="height:750px;display:block;margin:auto;">
-<br/><img src="./images/wanFood1.jpg" style="height:750px;display:block;margin:auto;">
+<br/><img src="./images/wanFood2.jpg" style="height:550px;display:block;margin:auto;">
+<br/><img src="./images/wanFood1.jpg" style="height:550px;display:block;margin:auto;">
 
 紀錄旺角的熱鬧街頭，還有在旺角特地走了一個上海街 618 的景點，這邊有點像松山文創，一樓還有樂團在演奏，整棟樓都是販賣一些文青的小物。
 ![](images/618.jpg)
@@ -154,8 +154,8 @@ image = "cover.jpg"
 ### 帝苑拿餅
 從旺角直接搭公車回到尖沙咀的帝苑酒店拿一個禮拜前在網路上訂好的蝴蝶酥～買了兩盒巧克力跟兩袋原味，巧克力很貴，但回家享用後才理解他的價值，餅乾的部分很脆，但上面的巧克力居然是濕潤的、甜度剛好，還好有買兩盒！  
 在去的路上剛好可以欣賞白天的維多利亞港口～
-<br/><img src="./images/dayVictoria.jpg" style="height:750px;display:block;margin:auto;">
-<br/><img src="./images/dayVictoria2.jpg" style="height:750px;display:block;margin:auto;">
+<br/><img src="./images/dayVictoria.jpg" style="height:550px;display:block;margin:auto;">
+<br/><img src="./images/dayVictoria2.jpg" style="height:550px;display:block;margin:auto;">
 
 ### 168 Hostel
 傍晚回到青旅，終於可以 checkin 看看內裝到底長怎樣了，首先青旅是在一棟很有年代感的住商大樓裡面，多有年代感可以參考珍妮小熊排隊的照片環境 XD 幸好早上來探過路，不難找到位置。青旅內部雖也看起來老舊，但所幸環境很整潔，還有飲水機可以使用。
