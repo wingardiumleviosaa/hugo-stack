@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Kubernetes on Ulagraphy</title>
+        <link>http://localhost:1313/en/categories/kubernetes/</link>
+        <description>Recent content in Kubernetes on Ulagraphy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>Ula Hsieh</copyright>
+        <lastBuildDate>Mon, 10 Jun 2024 11:36:21 +0800</lastBuildDate><atom:link href="http://localhost:1313/en/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Kubespray Setup for External Load Balancer</title>
+        <link>http://localhost:1313/en/p/k8s-kubespray-exteranl-loadbalancer/</link>
+        <pubDate>Mon, 10 Jun 2024 11:36:21 +0800</pubDate>
+        
+        <guid>http://localhost:1313/en/p/k8s-kubespray-exteranl-loadbalancer/</guid>
+        <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR
+&lt;/h2&gt;&lt;p&gt;The current Kubernetes HA (High Availability) architecture on my lab utilizes Nginx as a Load Balancer. When Kubernetes is deployed by Kubespray, the API server endpoint can be configured to an external load balancer.&lt;/p&gt;
+&lt;h2 id=&#34;architecture-overview&#34;&gt;Architecture Overview
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/k8s-kubespray-exteranl-loadbalancer/arch.png&#34;
+	width=&#34;1454&#34;
+	height=&#34;715&#34;
+	srcset=&#34;http://localhost:1313/p/k8s-kubespray-exteranl-loadbalancer/arch_hu6285401292806635492.png 480w, http://localhost:1313/p/k8s-kubespray-exteranl-loadbalancer/arch_hu1772701655429466471.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;203&#34;
+		data-flex-basis=&#34;488px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;In this setup, Nginx serves as the load balancer for API server requests, which distributes traffic across multiple master nodes to ensure high availability. This configuration requires modifications to the Kubespray deployment files to specify the load balancer details.&lt;/p&gt;
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration
+&lt;/h2&gt;&lt;p&gt;Locate the &lt;code&gt;all.yml&lt;/code&gt; file in the sample inventory provided by Kubespray:&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/kubespray/blob/master/inventory/sample/group_vars/all/all.yml&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;inventory/sample/group_vars/all/all.yml&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;## External LB example config&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;## apiserver_loadbalancer_domain_name: &amp;#34;elb.some.domain&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# loadbalancer_apiserver:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#   address: 1.2.3.4&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#   port: 1234&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;br&gt;  
+&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    @media (prefers-color-scheme:dark) {
+        .notice {
+            --title-color: #fff;
+            --title-background-color: #069;
+            --content-color: #ddd;
+            --content-background-color: #023;
+        }
+
+        .notice.info {
+            --title-background-color: #a50;
+            --content-background-color: #420;
+        }
+
+        .notice.tip {
+            --title-background-color: #363;
+            --content-background-color: #121;
+        }
+
+        .notice.warning {
+            --title-background-color: #800;
+            --content-background-color: #400;
+        }
+    }
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice notice&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            
+        &lt;/span&gt;&lt;/p&gt;&lt;p&gt;Therefore, you need to modify group_vars more before deploying ansible playbook.&lt;/p&gt;&lt;/div&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vi inventory/mycluster/group_vars/all/all.yml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Uncomment the example configuration for the external load balancer and adjust the values to fit your setup. An example configuration is provided below:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apiserver_loadbalancer_domain_name: &lt;span class=&#34;s2&#34;&gt;&amp;#34;k8s.sdsp-dev.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Configure the Nginx IP address and forwarding port here&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;loadbalancer_apiserver:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   address: 172.20.37.19
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   port: &lt;span class=&#34;m&#34;&gt;6443&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;additional-information&#34;&gt;Additional information
+&lt;/h2&gt;&lt;p&gt;Nginx stream config for Kubernetes API Servers.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/k8s-kubespray-exteranl-loadbalancer/stream.png&#34;
+	width=&#34;733&#34;
+	height=&#34;259&#34;
+	srcset=&#34;http://localhost:1313/p/k8s-kubespray-exteranl-loadbalancer/stream_hu14277154617888228513.png 480w, http://localhost:1313/p/k8s-kubespray-exteranl-loadbalancer/stream_hu15331653672156794214.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;283&#34;
+		data-flex-basis=&#34;679px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=u_1f3WyvtQE&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.youtube.com/watch?v=u_1f3WyvtQE&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+        </item>
+        <item>
+        <title>Kubernetes Introduction</title>
+        <link>http://localhost:1313/en/p/kubernets-basic/</link>
+        <pubDate>Wed, 07 Sep 2022 21:13:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/en/p/kubernets-basic/</guid>
+        <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR
+&lt;/h2&gt;&lt;p&gt;Official Definition:&lt;/p&gt;
+&lt;blockquote&gt;
+    &lt;p&gt;Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.&lt;/p&gt;&lt;span class=&#34;cite&#34;&gt;&lt;span&gt;― &lt;/span&gt;&lt;a href=&#34;https://kubernetes.io/&#34;&gt;&lt;cite&gt;offical site&lt;/cite&gt;&lt;/a&gt;&lt;/span&gt;&lt;/blockquote&gt;
+&lt;p&gt;Kubernetes, also known as k8s, was a project originally developed by Google using golang and then released. Used to operate automated containers, including deployment, scheduling, and scaling across node clusters.&lt;/p&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://imgur.com/0Innvot.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;The picture above shows a simple Kubernetes Cluster. Usually there are multiple Masters in a Cluster as backup, but for simplicity we only show one.&lt;/p&gt;
+&lt;h2 id=&#34;operation-method&#34;&gt;Operation Method
+&lt;/h2&gt;&lt;p&gt;When the user creates a Pod through User Command (kubectl), after authenticating the user identity, the user passes the command to the API Server in the Master Node, and the API Server will back up the command to etcd. Next, the controller-manager will receive a message from the API Server that a new Pod needs to be created, and check if the resources are allowed, then create a new Pod. Finally, when the Scheduler regularly accesses the API Server, it will ask the controller-manager whether a new Pod has been created. If a newly created Pod is found, the Scheduler will be responsible for distributing the Pod to the most suitable Node.&lt;/p&gt;
+&lt;h2 id=&#34;nodes-and-components&#34;&gt;Nodes and Components
+&lt;/h2&gt;&lt;h3 id=&#34;master-node&#34;&gt;Master Node
+&lt;/h3&gt;&lt;p&gt;It is the console of the Kubernetes cluster, responsible for managing the cluster and coordinating all activities. It contains the following components:&lt;/p&gt;
+&lt;h4 id=&#34;api-server&#34;&gt;API Server
+&lt;/h4&gt;&lt;p&gt;API Server manages all API interfaces of Kubernetes and is used to communicate and operate with each node in the cluster.&lt;/p&gt;
+&lt;h4 id=&#34;scheduler&#34;&gt;Scheduler
+&lt;/h4&gt;&lt;p&gt;Scheduler is a Pods scheduler that monitors newly created Pods that have not yet been assigned a Worker Node to run on, and coordinates the most suitable object to be placed for the Pod based on the resources on each Node.&lt;/p&gt;
+&lt;h4 id=&#34;controller-manager&#34;&gt;Controller Manager
+&lt;/h4&gt;&lt;p&gt;The component responsible for managing and running the Kubernetes controller. The controller is a number of Processes responsible for monitoring the status of the Cluster. It can be divided into the following different types:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Node controller - Responsible for notifying and responding to the status of nodes&lt;/li&gt;
+&lt;li&gt;Replication controller - Responsible for maintaining the set number of Pods in each replication system&lt;/li&gt;
+&lt;li&gt;End-Point controller - Responsible for service publishing of endpoints&lt;/li&gt;
+&lt;li&gt;Service Account &amp;amp; Token controller - Responsible for creating service accounts and API access tokens for newly generated Namespaces&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;etcd&#34;&gt;etcd
+&lt;/h4&gt;&lt;p&gt;It is used to store Kubernetes Cluster data as a backup. When the Master fails for some reason, we can use etcd to help us restore the state of Kubernetes.&lt;/p&gt;
+&lt;h3 id=&#34;worker-node&#34;&gt;Worker Node
+&lt;/h3&gt;&lt;p&gt;It is the runtime execution environment of Kubernetes and includes the following components:&lt;/p&gt;
+&lt;h4 id=&#34;pod&#34;&gt;Pod
+&lt;/h4&gt;&lt;p&gt;Pod is the smallest unit managed by Kubernetes, which contains one or more containers and can be regarded as the logical host of an application. Containers in the same Pod share the same resources and network, and communicate with each other through local port numbers. Pod runs on a private and isolated network. By default, it is visible in other pods and services in the same cluster, but is not visible to the outside. It needs to be exposed to the outside through services.&lt;/p&gt;
+&lt;h4 id=&#34;kubelet&#34;&gt;Kubelet
+&lt;/h4&gt;&lt;p&gt;Kubelet accepts commands from the API server to start pods and monitor status to ensure that all containers are running. It provides a heartbeat to the master node every few seconds. If the replication controller does not receive this message, the node is marked as unhealthy.&lt;/p&gt;
+&lt;h4 id=&#34;kube-proxy&#34;&gt;Kube Proxy
+&lt;/h4&gt;&lt;p&gt;Perform network connection forwarding, responsible for forwarding requests to the correct container.&lt;/p&gt;
+&lt;h2 id=&#34;resource&#34;&gt;Resource
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.sensu.io/how-kubernetes-works&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.sensu.io/how-kubernetes-works&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/@C.W.Hu/kubernetes-basic-concept-tutorial-e033e3504ec0&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://medium.com/@C.W.Hu/kubernetes-basic-concept-tutorial-e033e3504ec0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ithelp.ithome.com.tw/articles/10202135&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://ithelp.ithome.com.tw/articles/10202135&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+        </item>
+        
+    </channel>
+</rss>
