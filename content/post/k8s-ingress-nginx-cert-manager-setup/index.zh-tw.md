@@ -1,5 +1,5 @@
 ---
-title: '[Kubernetes] Ingress Nginx and Cert Manager Setup'
+title: "[Kubernetes] Ingress Nginx and Cert Manager Setup"
 tags:
   - Kubernetes
   - Ingress
@@ -10,6 +10,7 @@ slug: k8s-ingress-nginx-cert-manager-setup
 ---
 
 ## TL; DR
+
 紀錄使用 Helm Chart 安裝 Ingress Nginx Controller 以及 Cert Manager 並設置 TLS 憑證的過程。
 
 <!--more-->
@@ -20,10 +21,6 @@ slug: k8s-ingress-nginx-cert-manager-setup
 
 ```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update
-helm pull ingress-nginx/ingress-nginx
-tar -zxvf ingress-nginx-xxx.tgz
-cd ingress-nginx
 ```
 
 ### 編輯 values.yaml 設定
@@ -31,33 +28,33 @@ cd ingress-nginx
 - kind 類型更改為：DaemonSet
 
 ```yaml
- # -- Use a `DaemonSet` or `Deployment`
-  kind: DaemonSet
-  # -- Annotations to be added to the controller Deployment or DaemonSet
+# -- Use a `DaemonSet` or `Deployment`
+kind: DaemonSet
+# -- Annotations to be added to the controller Deployment or DaemonSet
 ```
 
 - service template 的 type 改為 NodePort
 
 ```yaml
-  service:
-    # -- Enable controller services or not. This does not influence the creation of either the admission webhook or the metrics service.
+service:
+  # -- Enable controller services or not. This does not influence the creation of either the admission webhook or the metrics service.
+  enabled: true
+  external:
+    # -- Enable the external controller service or not. Useful for internal-only deployments.
     enabled: true
-    external:
-      # -- Enable the external controller service or not. Useful for internal-only deployments.
-      enabled: true
-    # -- Annotations to be added to the external controller service. See `controller.service.internal.annotations` for annotations to be added to the internal controller service.
-    annotations: {}
-    # -- Labels to be added to both controller services.
-    labels: {}
-    # -- Type of the external controller service.
-    # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-    type: NodePort
+  # -- Annotations to be added to the external controller service. See `controller.service.internal.annotations` for annotations to be added to the internal controller service.
+  annotations: {}
+  # -- Labels to be added to both controller services.
+  labels: {}
+  # -- Type of the external controller service.
+  # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: NodePort
 ```
 
 ### 安裝
 
 ```yaml
-helm install ingress-nginx --namespace ingress-nginx --create-namespace
+helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace -f values.yaml
 ```
 
 ## Cert Manager
@@ -68,9 +65,10 @@ helm install ingress-nginx --namespace ingress-nginx --create-namespace
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 helm install cert-manager jetstack/cert-manager \
-  --namespace cert-manager \
-  --create-namespace \
-  --set installCRDs=true
+--namespace cert-manager \
+--create-namespace \
+--set crds.keep=false \
+--set crds.enabled=true
 ```
 
 ### 取得 Cloudflare API Token
@@ -103,16 +101,16 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-prd
     solvers:
-    - selector:
-        dnsZones:
-          - "sdsp-dev.com"
-          - "*.sdsp-dev.com"
-      dns01:
-        cloudflare:
-          email: asus.sdsp@gmail.com
-          apiTokenSecretRef:
-            name: cloudflare-api-token
-            key: api-token
+      - selector:
+          dnsZones:
+            - "sdsp-dev.com"
+            - "*.sdsp-dev.com"
+        dns01:
+          cloudflare:
+            email: asus.sdsp@gmail.com
+            apiTokenSecretRef:
+              name: cloudflare-api-token
+              key: api-token
 ```
 
 ### 建立 wildcard 憑證
@@ -168,19 +166,19 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-  - hosts:
-    - doc.sdsp-dev.com
+    - hosts:
+        - doc.sdsp-dev.com
   rules:
-  - host: doc.sdsp-dev.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: vitepress
-            port:
-              number: 80
-        path: /.*
-        pathType: Prefix
+    - host: doc.sdsp-dev.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: vitepress
+                port:
+                  number: 80
+            path: /.*
+            pathType: Prefix
 ```
 
 ![](./ingress.png)
@@ -193,8 +191,6 @@ spec:
 
 ![](./k8s-ha.png)
 
-
 {{< notice tip >}}
 其他常見的 HA 架構為使用 HA Proxy + keepalive
 {{< /notice >}}
-
