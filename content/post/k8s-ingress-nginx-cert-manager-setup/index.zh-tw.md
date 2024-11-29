@@ -75,7 +75,7 @@ helm install cert-manager jetstack/cert-manager \
 
 將 API Token 的 Permission 設為 `Zone.Zone, Zone.DNS` ；Resources 設為 `All zones`。
 
-![](./cloudflare.png)
+![](cloudflare.png)
 
 ### 建立 Cluster Issuer
 
@@ -149,7 +149,7 @@ kubectl edit daemonset.apps/ingress-nginx-controller -n ingress-nginx
 
 假設環境下已有一個 deployment 資源 vitepress
 
-![](./vitepress.png)
+![](vitepress.png)
 
 為 vitepress service 建立 ingress 資源，以供對外存取。
 
@@ -181,15 +181,15 @@ spec:
             pathType: Prefix
 ```
 
-![](./ingress.png)
+![](ingress.png)
 
 並在 Cloudflare 設定 DNS A Record 即可，因為在 Kubernetes 集群前面放了一個 Nginx 做負載均衡，所以可以直接將 Cloudflare DNS Record 的 IP Address 設為 `172.20.37.33`。
 
-![](./cf-setting.png)
+![](cf-setting.png)
 
 ## 補充 Kubernetes + Nginx HA 架構圖
 
-![](./k8s-ha.png)
+![](k8s-ha.png)
 
 {{< notice tip >}}
 其他常見的 HA 架構為使用 HA Proxy + keepalive
