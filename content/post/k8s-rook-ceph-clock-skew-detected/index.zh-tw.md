@@ -1,9 +1,8 @@
 ---
-title: '[Kubernetes] Rook Health Warn with Clock Skew'
+title: "[Kubernetes] Rook Health Warn with Clock Skew"
 tags:
   - Kubernetes
   - Ceph
-  - Rook
 categories:
   - Kubernetes
 date: 2024-05-01T22:20:00+08:00
@@ -11,7 +10,9 @@ slug: k8s-rook-ceph-clock-skew-detected
 ---
 
 ### 問題
+
 rook-ceph 集群顯示 HEALTH WARN，其原因為 clock skew detected on mon.c, mon.d。
+
 <!--more-->
 
 ```bash
@@ -22,18 +23,18 @@ kubectl -n rook-ceph describe cephcluster
 Status:
   Ceph:
     Capacity:
-      Bytes Available:  1174133465088
-      Bytes Total:      1181116006400
-      Bytes Used:       6982541312
-      Last Updated:     2024-04-16T01:21:15Z
+      Bytes Available: 1174133465088
+      Bytes Total: 1181116006400
+      Bytes Used: 6982541312
+      Last Updated: 2024-04-16T01:21:15Z
     Details:
       MON_CLOCK_SKEW:
-        Message:      clock skew detected on mon.c, mon.d
-        Severity:     HEALTH_WARN
-    Fsid:             caec8fab-28a0-464d-9079-463ddbb7c4e3
-    Health:           HEALTH_WARN
-    Last Changed:     2024-04-15T11:31:39Z
-    Last Checked:     2024-04-16T01:21:15Z
+        Message: clock skew detected on mon.c, mon.d
+        Severity: HEALTH_WARN
+    Fsid: caec8fab-28a0-464d-9079-463ddbb7c4e3
+    Health: HEALTH_WARN
+    Last Changed: 2024-04-15T11:31:39Z
+    Last Checked: 2024-04-16T01:21:15Z
 ```
 
 ### 解決
@@ -97,11 +98,11 @@ metadata:
 
 ```yaml
 config: |
-    [global]
-    mon clock drift allowed = 1
+  [global]
+  mon clock drift allowed = 1
 ```
 
-此處的時間可隨自身的時間差設置，在0.5到1s之間，不建議設定過大的值
+此處的時間可隨自身的時間差設置，在 0.5 到 1s 之間，不建議設定過大的值
 
 接著刪除 mon Pod 使其載入新的設定文件
 

@@ -87,7 +87,7 @@ metadata:
   namespace: cert-manager
 type: Opaque
 stringData:
-  api-token: uNlI5Slnd-NqqyUX9iNoVlJ2jh57kFAzT5DxKE2E
+  api-token: <api key>
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer

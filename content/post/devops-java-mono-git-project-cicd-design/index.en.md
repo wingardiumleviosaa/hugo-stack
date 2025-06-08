@@ -1,8 +1,8 @@
 ---
-title: 'CICD Design for Monolitic Java Git Project'
+title: "CICD Design for Monolitic Java Git Project"
 tags:
   - GitLab
-  - CICD
+  - CI/CD
   - ArgoCD
 categories:
   - DevOps
@@ -80,66 +80,66 @@ generate-pipeline:
     - |
       echo "Checking changes between $CI_COMMIT_BEFORE_SHA and $CI_COMMIT_SHA"
       SERVICES=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA | cut -d/ -f1 | sort -u | grep ^abc- | grep -v "abc-common" || true)
-      
+
       cat > child-pipeline.yml << 'EOF'
       stages:
         - dummy
-      
+
       dummy-job:
         stage: dummy
         script:
           - echo "No services change detected!"
       EOF
-      
+
       if [ -z "$SERVICES" ]; then
         echo "No services change detected!"
         exit 0
       fi
-      
+
       echo "Detected services: $SERVICES"
-      
+
       cat > child-pipeline.yml << 'EOF'
       default:
         tags:
           - k8s-dev
         image: maven:3.8-openjdk-17
-      
+
       stages:
         - build
         - test
         - package
         - image-build
         - argocd-deploy
-      
+
       variables:
         MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
         MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
         CD_REPO_URL: "https://gitlab.sdsp-stg.com/paas/argocd-mono/abc.git"
         CD_REPO_NAME: "abc"
-      
+
       cache:
         key: ${CI_COMMIT_REF_SLUG}
         paths:
           - .m2/repository
-      
+
       EOF
 
       for SERVICE in $SERVICES; do
         echo "Generating jobs for $SERVICE"
         cat >> child-pipeline.yml << EOF
-      
+
       build-${SERVICE}:
         stage: build
         script:
           - mvn \$MAVEN_CLI_OPTS compile -pl ${SERVICE} -am
-      
+
       test-${SERVICE}:
         stage: test
         script:
           - mvn \$MAVEN_CLI_OPTS test -pl ${SERVICE} -am
         needs:
           - build-${SERVICE}
-      
+
       package-${SERVICE}:
         stage: package
         script:
@@ -150,7 +150,7 @@ generate-pipeline:
           expire_in: 1 week
         needs:
           - test-${SERVICE}
-      
+
       image-build-${SERVICE}:
         stage: image-build
         image:
@@ -168,7 +168,7 @@ generate-pipeline:
             --destination "\${HARBOR_URL}/\${CI_PROJECT_NAME}/${SERVICE}:latest"
         needs:
           - package-${SERVICE}
-      
+
       .deploy_template: &deploy_template
         stage: argocd-deploy
         image:
@@ -192,7 +192,7 @@ generate-pipeline:
             git push origin main
         needs:
           - image-build-${SERVICE}
-      
+
       deploy-dev-${SERVICE}:
         <<: *deploy_template
         variables:
@@ -202,7 +202,7 @@ generate-pipeline:
 
       EOF
       done
-      
+
       cat child-pipeline.yml
   artifacts:
     paths:
@@ -220,6 +220,7 @@ trigger-child-pipeline:
 ```
 
 ## CI Desgin Logic
+
 Because there are multiple microservices, not every commit will affect all microservices, so the child-pipeline method will be used to automatically generate which services (excluding abc-common) need to be built, tested, packaged, image-built and deployed. During the build and deploy phases, if there is no change in microservices, the dummy job will be executed without any action.
 
 In the part of updating the CD, the image of kustomize is mainly used, which happens to contain git, so it can be used for git update operations. The actions are as follows:

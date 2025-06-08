@@ -2,7 +2,7 @@
 title: Install Pure Prometheus Stack by Kustomize on Kubernetes
 tags:
   - Kubernetes
-  - Prometheus
+  - Observability
 categories:
   - Kubernetes
 date: 2024-11-27 18:45:00

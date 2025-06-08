@@ -4,7 +4,6 @@ date= 2024-11-01T15:00:00+08:00
 categories = [
     "Travel"
 ]
-tags= ["Life"]
 slug= "hongkong-2024"
 image = "cover.jpg"
 +++

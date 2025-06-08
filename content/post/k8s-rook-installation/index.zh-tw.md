@@ -3,7 +3,6 @@ title: "[Kubernetes] Rook 1.13 (Ceph on Kubernetes) 安裝紀錄"
 tags:
   - Kubernetes
   - Ceph
-  - Rook
 categories:
   - Kubernetes
 date: 2024-03-30T10:45:00+08:00
@@ -32,6 +31,7 @@ slug: k8s-rook-installation
   - 在已存在的 Storage Class 中，以 block level 型態提供的 Persistent Volumes
 - RBD：
   Ceph 需要使用具有 RBD 模組的 Linux kernel。許多 Linux 發行版都已經包含了 RBD 模組，但不是所有的發行版都有，使用下面 command 確認及載入
+
   ```bash
   lsmod | grep rbd
 

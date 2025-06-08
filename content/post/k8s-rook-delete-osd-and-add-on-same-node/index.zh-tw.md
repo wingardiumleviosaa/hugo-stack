@@ -1,9 +1,8 @@
 ---
-title: '[Kubernetes] Rook 刪除原先 /dev/sdb 的 OSD 並重新新增同個節點的 /dev/sda 的 OSD'
+title: "[Kubernetes] Rook 刪除原先 /dev/sdb 的 OSD 並重新新增同個節點的 /dev/sda 的 OSD"
 tags:
   - Kubernetes
   - Ceph
-  - Rook
 categories:
   - Kubernetes
 date: 2024-04-30T14:45:00+08:00
@@ -17,25 +16,28 @@ slug: k8s-rook-delete-osd-and-add-on-same-node
 <!--more-->
 
 1. 先將 rook-ceph-operator 停用
+
 ```yaml
 kubectl -n rook-ceph scale deployment rook-ceph-operator --replicas=0
 ```
 
 2. 修改 rook cluster 配置，指定節點使用 sda 硬碟。
+
 ```yaml
 # kubectl edit cephclusters.ceph.rook.io -n rook-ceph rook-ceph
 storage:
-    flappingRestartIntervalHours: 0
-    nodes:
+  flappingRestartIntervalHours: 0
+  nodes:
     - devices:
-      - name: sda
+        - name: sda
       name: node5
-    store: {}
-    useAllDevices: true
-    useAllNodes: true
+  store: {}
+  useAllDevices: true
+  useAllNodes: true
 ```
 
 3. 部署 ceph toolbox
+
 ```yaml
 kubectl apply -f toolbox.yaml
 ```
@@ -176,11 +178,12 @@ spec:
 ```
 
 4. 進入 toolbox 執行移除 sdb osd 操作
+
 ```yaml
 kubectl -n rook-ceph exec -it deploy/rook-ceph-tools -- bash
 ```
 
-手動移除對應osd
+手動移除對應 osd
 
 ```yaml
 ceph osd set noup
@@ -194,7 +197,7 @@ ceph auth del osd.0
 ceph osd crush remove node5
 ```
 
-檢查ceph狀態以及osd狀態
+檢查 ceph 狀態以及 osd 狀態
 
 ```
 ceph -s
@@ -207,7 +210,7 @@ ceph osd tree
 kubectl delete deploy -n rook-ceph rook-ceph-osd-0
 ```
 
-6. 進入 node5 節點，並清除磁盤資料 
+6. 進入 node5 節點，並清除磁盤資料
 
 ```yaml
  #!/usr/bin/env bash
@@ -221,15 +224,17 @@ kubectl delete deploy -n rook-ceph rook-ceph-osd-0
   ls /dev/mapper/ceph-* | xargs -I% -- dmsetup remove %
   # ceph-volume setup can leave ceph-<UUID> directories in /dev (unnecessary clutter)
   rm -rf /dev/ceph-*
-  
+
   lsblk -f
   rm  -rf /var/lib/rook/*
 ```
 
 7. 重新將 rook-ceph-operator 啟用，node5 sda osd 便會自動新增
+
 ```yaml
 kubectl -n rook-ceph scale deployment rook-ceph-operator --replicas=0
 ```
 
 ## Reference
+
 - https://blog.csdn.net/fancy106/article/details/121706998
